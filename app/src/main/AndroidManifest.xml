@@ -18,7 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name="uniderp.controller.ActCadastro"></activity>
+=======
+        <activity
+            android:name="uniderp.controller.EditComp"
+            android:label="@string/title_activity_edit_comp"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> origin/master
     </application>
 
 </manifest>
