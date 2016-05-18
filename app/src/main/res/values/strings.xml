@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AppEventos</string>
     <string name="title_activity_act_cadastro">ActCadastro</string>
+    <string name="title_activity_edit_comp">EditComp</string>
 </resources>
