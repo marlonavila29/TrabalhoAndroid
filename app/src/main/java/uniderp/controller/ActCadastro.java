@@ -28,11 +28,14 @@ public class ActCadastro extends AppCompatActivity {
         EditText editParticipantes = (EditText) findViewById(R.id.editParticipantes);
 */
         db.open();
-        db.inserePessoa(editDataEvento.getText().toString());
+        long resultado = db.insereCompromisso(editDataEvento.getText().toString());
         db.close();
-
+        if (resultado == -1)
+            Toast.makeText(this,"Erro ao inserir registro",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Registro Inserido com sucesso",Toast.LENGTH_SHORT).show();
         db.open();
-        Cursor c = db.getData(1);
+        Cursor c = db.getCompromissos();
 
         if (c.moveToFirst())
         {
@@ -48,9 +51,7 @@ public class ActCadastro extends AppCompatActivity {
     public void mostraRegistro(Cursor c)
     {
         Toast.makeText(this,
-                "Codigo: " + c.getString(0) + "\n" +
-                        "Nome: " + c.getString(1) + "\n",
-                Toast.LENGTH_SHORT).show();
+                "Data: " + c.getString(0) + "\n", Toast.LENGTH_SHORT).show();
     }
 
     public void repetir(View v){

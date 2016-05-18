@@ -12,21 +12,6 @@ package uniderp.controller;
 
     public class AcessoBanco {
 
-        public static final String CODIGO = "codigo";
-        private static final String NOME_BD = "trabalho";
-        private static final String NOME_TABELA = "compromisso";
-
-        public static String  DATA_COMPROMISSO;
-        public static int  HORA_INICIO;
-        public static int  HORA_FIM;
-        public static String LOCAL_REALIZACAO;
-        public static String DESCRICAO;
-        public static String PARTICIPANTES;
-        public static int TIPO_EVENTOS;
-        public static String REPETICAO;
-        public static String ID;
-
-
         private final Context context;
 
         private Conexao conector;
@@ -48,17 +33,15 @@ package uniderp.controller;
         {
             conector.close();
         }
-
-        public long inserePessoa(String dataCompromisso/* int horaInicio, int horaFim,
-        String localRealizacao, String descricao, String participantes, int tipoEventos, String repeticao*/)
+        /* int horaInicio, int horaFim,
+                String localRealizacao, String descricao, String participantes, int tipoEventos, String repeticao*/
+        public long insereCompromisso(String dataCompromisso)
         {
             ContentValues initialValues = new ContentValues();
-            initialValues.put(DATA_COMPROMISSO, dataCompromisso);
-            /* initialValues.put(HORA_INICIO, dataCompromisso);
-            initialValues.put(HORA_FIM, dataCompromisso);
-            initialValues.put(LOCAL_REALIZACAO, dataCompromisso);
-            */
-            return db.insert(NOME_TABELA, null, initialValues);
+            initialValues.put(Conexao.DATA_COMPROMISSO, dataCompromisso);
+            return db.insert(Conexao.TABELA, null, initialValues);
+
+           // db.execSQL("INSERT INTO "+ Conexao.TABELA + " (" + Conexao.DATA_COMPROMISSO + ")" + " VALUES " + "(" + dataCompromisso +");"  );
         }
 /*
         public boolean remmovePessoa(long cod)
@@ -71,20 +54,19 @@ package uniderp.controller;
             return db.query(NOME_TABELA, new String[] {CODIGO, NOME}, null, null, null, null, null);
         }
 */
-        public Cursor getData(long cod) throws SQLException
+        public Cursor getCompromissos() throws SQLException
         {
-            Cursor mCursor =
-                    db.query(true, NOME_TABELA, new String[] {CODIGO, DATA_COMPROMISSO}, CODIGO + "=" + cod, null,
-                            null, null, null, null);
+            Cursor mCursor =  db.query(Conexao.TABELA, new String[] {Conexao.DATA_COMPROMISSO}, null,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
             return mCursor;
+
         }
         public boolean updatePessoa(long cod, String name, String email)
         {
             ContentValues args = new ContentValues();
           //  args.put(NOME, name);
-            return db.update(NOME_BD, args, CODIGO + "=" + cod, null) > 0;
+            return db.update(Conexao.NOME_BD, args, Conexao.ID + "=" + cod, null) > 0;
         }
     }

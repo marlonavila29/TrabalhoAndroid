@@ -12,13 +12,11 @@ package uniderp.controller;
 
     public class Conexao extends SQLiteOpenHelper {
 
-        private static final String TAG = "DBAdapter";
-
-        private static final String NOME_BD = "trabalho";
-        private static final int DATABASE_VERSION = 2;
-        private static final String TABELA= "compromisso";
-
-        public static String  DATA_COMPROMISSO;
+        public static final String ID = "_id";
+        public static final String NOME_BD = "trabalho.db";
+        public static final int DATABASE_VERSION = 8;
+        public static final String TABELA = "compromisso";
+        public static final String  DATA_COMPROMISSO = "data_compromisso";
         public static int  HORA_INICIO;
         public static int  HORA_FIM;
         public static String LOCAL_REALIZACAO;
@@ -26,12 +24,14 @@ package uniderp.controller;
         public static String PARTICIPANTES;
         public static int TIPO_EVENTOS;
         public static String REPETICAO;
-        public static String ID;
 
+/*
         private static final String DATABASE_CREATE = "CREATE TABLE" +TABELA+"(" + ID + "integer primary key autoincrement,"
                 + DATA_COMPROMISSO + "text," + HORA_INICIO + "integer," + HORA_FIM + "integer," +
                 LOCAL_REALIZACAO + "text," + DESCRICAO + "text," + PARTICIPANTES + "text," +
                 TIPO_EVENTOS + "integer," + REPETICAO + "text" + ")";
+*/
+        private static final String DATABASE_CREATE = "CREATE TABLE "+TABELA+" ( "+ID +" integer primary key autoincrement,"+DATA_COMPROMISSO+" text "+")";
 
         Conexao(Context context)
         {
@@ -51,9 +51,7 @@ package uniderp.controller;
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
-            Log.w(TAG, "Atualizando banco de dados da versão " + oldVersion + " para "
-                    + newVersion + ". Todos os dados serão destruidos.");
-            db.execSQL("DROP TABLE IF EXISTS pessoas");
+            db.execSQL("DROP TABLE IF EXISTS " + TABELA);
             onCreate(db);
         }
 
