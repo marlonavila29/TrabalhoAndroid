@@ -9,8 +9,11 @@ package uniderp.controller;
     import android.database.Cursor;
     import android.database.SQLException;
     import android.database.sqlite.SQLiteDatabase;
+    import android.widget.EditText;
 
-    public class AcessoBanco {
+    import uniderp.model.Compromisso;
+
+public class AcessoBanco {
 
         private final Context context;
 
@@ -35,34 +38,60 @@ package uniderp.controller;
         }
         /* int horaInicio, int horaFim,
                 String localRealizacao, String descricao, String participantes, int tipoEventos, String repeticao*/
-        public long insereCompromisso(String dataCompromisso)
+        public long insereCompromisso(Compromisso compromisso)
         {
-            ContentValues initialValues = new ContentValues();
-            initialValues.put(Conexao.DATA_COMPROMISSO, dataCompromisso);
-            return db.insert(Conexao.TABELA, null, initialValues);
+            ContentValues initialValuesCompromisso = new ContentValues();
+            initialValuesCompromisso.put(Conexao.DATA_EVENTO, String.valueOf(compromisso.getDataEvento()));
+            initialValuesCompromisso.put(Conexao.DESCRICAO, compromisso.getDescricao());
+            initialValuesCompromisso.put(Conexao.HORA_INICIO, compromisso.getHoraInicio());
+            initialValuesCompromisso.put(Conexao.HORA_FIM, compromisso.getHoraInicio());
+            initialValuesCompromisso.put(Conexao.LOCAL_REALIZACAO, compromisso.getLocalRealizacao());
+            initialValuesCompromisso.put(Conexao.PARTICIPANTES, compromisso.getParticipantes());
 
-           // db.execSQL("INSERT INTO "+ Conexao.TABELA + " (" + Conexao.DATA_COMPROMISSO + ")" + " VALUES " + "(" + dataCompromisso +");"  );
+            return db.insert(Conexao.TABELA_COMPROMISSO, null, initialValuesCompromisso);
+
         }
-/*
-        public boolean remmovePessoa(long cod)
-        {
-            return db.delete(NOME_TABELA, CODIGO + "=" + cod, null) > 0;
+        public long insereTipoEvento(EditText tipoEvento){
+            ContentValues initialValuesTipoEvento = new ContentValues();
+            initialValuesTipoEvento.put(Conexao.TIPO_EVENTO, tipoEvento.getText().toString());
+            return db.insert(Conexao.TABELA_TIPO_EVENTO, null, initialValuesTipoEvento);
         }
 
-        public Cursor getCadastros()
-        {
-            return db.query(NOME_TABELA, new String[] {CODIGO, NOME}, null, null, null, null, null);
+        public long insereRepeticao(EditText tipoEvento){
+            ContentValues initialValuesTipoEvento = new ContentValues();
+            initialValuesTipoEvento.put(Conexao.TIPO_EVENTO, tipoEvento.getText().toString());
+            return db.insert(Conexao.TABELA_TIPO_EVENTO, null, initialValuesTipoEvento);
         }
-*/
+
         public Cursor getCompromissos() throws SQLException
         {
-            Cursor mCursor =  db.query(Conexao.TABELA, new String[] {Conexao.DATA_COMPROMISSO}, null,null, null,null, null, null);
+            Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.DATA_EVENTO}, null,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
             return mCursor;
 
         }
+
+        public Cursor getTipoEvento() throws SQLException
+        {
+            Cursor mCursor =  db.query(Conexao.TABELA_TIPO_EVENTO, new String[] {Conexao.ID,Conexao.TIPO_EVENTO}, null,null, null,null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
+
+        }
+        public Cursor getRepeticao() throws SQLException
+        {
+            Cursor mCursor =  db.query(Conexao.TABELA_REPETICAO, new String[] {Conexao.ID,Conexao.TIPO_EVENTO}, null,null, null,null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
+
+        }
+
         public boolean updatePessoa(long cod, String name, String email)
         {
             ContentValues args = new ContentValues();

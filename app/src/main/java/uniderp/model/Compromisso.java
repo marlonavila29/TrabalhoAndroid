@@ -1,24 +1,53 @@
 package uniderp.model;
 
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import uniderp.controller.AcessoBanco;
 
 /**
  * Created by Edithimar on 21/04/2016.
  */
 public class Compromisso {
 
-    private Date dataCompromisso;
+    private Date dataEvento;
     private int  horaInicio;
     private int  horaFim;
     private String localRealizacao;
     private String descricao;
     private String participantes;
-    private ArrayList<String> tipoEventos = new ArrayList<String>();
+    private int tipoEventos;
     private String repeticao;
 
-    public void cadastrarCompromisso(Compromisso compromisso){
+    public static Compromisso cadastrarCompromisso(EditText editDataEvento,EditText editHoraEvento,EditText editHoraFim,
+                                            EditText editLocalEvento,EditText editDescricao,
+                                            EditText editParticipantes, int idTipoEvento){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
+        Date dateObject = null;
+        try {
+             dateObject =  formatter.parse(editDataEvento.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+
+        Compromisso compromisso = new Compromisso();
+        compromisso.setDataEvento(dateObject);
+        compromisso.setHoraInicio(Integer.parseInt(editHoraEvento.getText().toString()));
+        compromisso.setHoraFim(Integer.parseInt(editHoraFim.getText().toString()));
+        compromisso.setLocalRealizacao(editLocalEvento.getText().toString());
+        compromisso.setDescricao(editDescricao.getText().toString());
+        compromisso.setParticipantes(editParticipantes.getText().toString());
+        compromisso.setTipoEventos(idTipoEvento);
+
+
+        return compromisso;
     }
 
     public void alterarCompromisso(Compromisso compromisso){
@@ -37,12 +66,12 @@ public class Compromisso {
 
     }
 
-    public Date getDataCompromisso() {
-        return dataCompromisso;
+    public Date getDataEvento() {
+        return dataEvento;
     }
 
-    public void setDataCompromisso(Date dataCompromisso) {
-        this.dataCompromisso = dataCompromisso;
+    public void setDataEvento(Date dataEvento) {
+        this.dataEvento = dataEvento;
     }
 
     public int getHoraInicio() {
@@ -85,11 +114,11 @@ public class Compromisso {
         this.participantes = participantes;
     }
 
-    public ArrayList<String> getTipoEventos() {
+    public int getTipoEventos() {
         return tipoEventos;
     }
 
-    public void setTipoEventos(ArrayList<String> tipoEventos) {
+    public void setTipoEventos(int tipoEventos) {
         this.tipoEventos = tipoEventos;
     }
 

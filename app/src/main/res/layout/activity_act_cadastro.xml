@@ -15,13 +15,10 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/editDataEvento"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/editHoraFim"
-        android:layout_alignStart="@+id/editHoraFim"
         android:hint="Data de realização"
-        android:layout_alignRight="@+id/radioGroup"
-        android:layout_alignEnd="@+id/radioGroup" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,32 +30,18 @@
         android:layout_alignLeft="@+id/editDataEvento"
         android:layout_alignStart="@+id/editDataEvento"
         android:hint="Horário de início"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editHoraFim"
-        android:hint="Hora de término"
-        android:layout_below="@+id/editHoraEvento"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/radioGroup"
-        android:layout_alignEnd="@+id/radioGroup" />
+        android:layout_toStartOf="@+id/buttonCancelar"
+        android:layout_alignRight="@+id/editLocalEvento"
+        android:layout_alignEnd="@+id/editLocalEvento" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editLocalEvento"
         android:hint="Local de realização"
-        android:layout_below="@+id/editHoraFim"
+        android:layout_below="@+id/editHoraEvento"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editHoraFim"
-        android:layout_alignEnd="@+id/editHoraFim" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -78,9 +61,7 @@
         android:hint="Participantes"
         android:layout_below="@+id/editDescricao"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editDescricao"
-        android:layout_alignEnd="@+id/editDescricao" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,15 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repetir"
-        android:id="@+id/buttonRepetir"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="38dp" />
+
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -111,20 +84,59 @@
         android:layout_above="@+id/buttonRepetir"
         android:id="@+id/radioGroup">
 
-        <RadioButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fazer Lista Tipo Evento"
-            android:id="@+id/radioButton"
-            android:checked="false" />
-    </RadioGroup>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tipo do evento:"
+            android:id="@+id/textView6"
+            android:layout_above="@+id/radioGroup"
+            android:layout_toLeftOf="@+id/buttonSalvar"
+            android:layout_toStartOf="@+id/buttonSalvar" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/listViewTipoEvento" />
+    </RadioGroup>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repetir"
+        android:id="@+id/buttonRepetir"
+        android:nestedScrollingEnabled="false"
+        android:onClick="repetir"
+        android:layout_alignTop="@+id/buttonSalvar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Salvar"
         android:id="@+id/buttonSalvar"
-        android:layout_below="@+id/radioGroup"
+        android:onClick="salvarCompromisso"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/radioGroup"
+        android:layout_alignEnd="@+id/radioGroup" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        android:id="@+id/buttonCancelar"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="salvarCompromisso" />
+        android:onClick="cancelar" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editHoraFim"
+        android:hint="Hora de término"
+        android:layout_below="@+id/editDataEvento"
+        android:layout_toRightOf="@+id/editLocalEvento"
+        android:layout_toEndOf="@+id/editLocalEvento" />
+
 </RelativeLayout>
