@@ -9,12 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import uniderp.appeventos.R;
-import uniderp.model.Repeticao;
 
 public class ActRepetir extends AppCompatActivity {
 
@@ -62,6 +57,9 @@ public class ActRepetir extends AppCompatActivity {
             editDataTermino.setEnabled(false);
             checkApos.setEnabled(false);
             checkTermina.setEnabled(false);
+            //zerando outros campos
+            editQtdeOcorrencia.setText("");
+            editDataTermino.setText("");
         }
         else{
             editQtdeOcorrencia.setEnabled(true);
@@ -76,6 +74,7 @@ public class ActRepetir extends AppCompatActivity {
             checkIndeterminado.setEnabled(false);
             checkTermina.setEnabled(false);
             editDataTermino.setEnabled(false);
+            editDataTermino.setText("");
         }
         else{
             checkIndeterminado.setEnabled(true);
@@ -89,7 +88,7 @@ public class ActRepetir extends AppCompatActivity {
             editQtdeOcorrencia.setEnabled(false);
             checkApos.setEnabled(false);
             checkIndeterminado.setEnabled(false);
-
+            editQtdeOcorrencia.setText("");
         }
         else{
             editQtdeOcorrencia.setEnabled(true);

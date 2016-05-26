@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Início em:"
+        android:text="Início em:  "
         android:id="@+id/textView3"
         android:layout_below="@+id/editRepete"
         android:layout_toLeftOf="@+id/radioGroup2"

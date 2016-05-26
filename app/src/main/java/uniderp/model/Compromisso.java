@@ -7,7 +7,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import uniderp.controller.AcessoBanco;
 
@@ -16,35 +18,27 @@ import uniderp.controller.AcessoBanco;
  */
 public class Compromisso {
 
-    private Date dataEvento;
+    private String dataEvento;
     private int  horaInicio;
     private int  horaFim;
     private String localRealizacao;
     private String descricao;
     private String participantes;
-    private int tipoEventos;
     private String repeticao;
+    private int idTipoEvento;
 
     public static Compromisso cadastrarCompromisso(EditText editDataEvento,EditText editHoraEvento,EditText editHoraFim,
                                             EditText editLocalEvento,EditText editDescricao,
                                             EditText editParticipantes, int idTipoEvento){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
-        Date dateObject = null;
-        try {
-             dateObject =  formatter.parse(editDataEvento.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
 
         Compromisso compromisso = new Compromisso();
-        compromisso.setDataEvento(dateObject);
+        compromisso.setDataEvento(editDataEvento.getText().toString());
         compromisso.setHoraInicio(Integer.parseInt(editHoraEvento.getText().toString()));
         compromisso.setHoraFim(Integer.parseInt(editHoraFim.getText().toString()));
         compromisso.setLocalRealizacao(editLocalEvento.getText().toString());
         compromisso.setDescricao(editDescricao.getText().toString());
         compromisso.setParticipantes(editParticipantes.getText().toString());
-        compromisso.setTipoEventos(idTipoEvento);
+        compromisso.setIdTipoEvento(idTipoEvento);
 
 
         return compromisso;
@@ -66,11 +60,13 @@ public class Compromisso {
 
     }
 
-    public Date getDataEvento() {
+
+
+    public String getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(Date dataEvento) {
+    public void setDataEvento(String dataEvento) {
         this.dataEvento = dataEvento;
     }
 
@@ -114,19 +110,19 @@ public class Compromisso {
         this.participantes = participantes;
     }
 
-    public int getTipoEventos() {
-        return tipoEventos;
-    }
-
-    public void setTipoEventos(int tipoEventos) {
-        this.tipoEventos = tipoEventos;
-    }
-
     public String getRepeticao() {
         return repeticao;
     }
 
     public void setRepeticao(String repeticao) {
         this.repeticao = repeticao;
+    }
+
+    public int getIdTipoEvento() {
+        return idTipoEvento;
+    }
+
+    public void setIdTipoEvento(int idTipoEvento) {
+        this.idTipoEvento = idTipoEvento;
     }
 }

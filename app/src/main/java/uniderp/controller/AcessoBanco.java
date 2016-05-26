@@ -47,25 +47,21 @@ public class AcessoBanco {
             initialValuesCompromisso.put(Conexao.HORA_FIM, compromisso.getHoraInicio());
             initialValuesCompromisso.put(Conexao.LOCAL_REALIZACAO, compromisso.getLocalRealizacao());
             initialValuesCompromisso.put(Conexao.PARTICIPANTES, compromisso.getParticipantes());
+            initialValuesCompromisso.put(Conexao.ID_TIPO_EVENTO, compromisso.getIdTipoEvento());
 
             return db.insert(Conexao.TABELA_COMPROMISSO, null, initialValuesCompromisso);
 
         }
-        public long insereTipoEvento(EditText tipoEvento){
+        public long insereTipoEvento(String tipoEvento){
             ContentValues initialValuesTipoEvento = new ContentValues();
-            initialValuesTipoEvento.put(Conexao.TIPO_EVENTO, tipoEvento.getText().toString());
-            return db.insert(Conexao.TABELA_TIPO_EVENTO, null, initialValuesTipoEvento);
-        }
-
-        public long insereRepeticao(EditText tipoEvento){
-            ContentValues initialValuesTipoEvento = new ContentValues();
-            initialValuesTipoEvento.put(Conexao.TIPO_EVENTO, tipoEvento.getText().toString());
+            initialValuesTipoEvento.put(Conexao.TIPO_EVENTO, tipoEvento);
             return db.insert(Conexao.TABELA_TIPO_EVENTO, null, initialValuesTipoEvento);
         }
 
         public Cursor getCompromissos() throws SQLException
         {
-            Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.DATA_EVENTO}, null,null, null,null, null, null);
+            Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.ID_COMPROMISSO, Conexao.DATA_EVENTO,Conexao.HORA_INICIO
+                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.ID_TIPO_EVENTO}, null,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
@@ -75,27 +71,29 @@ public class AcessoBanco {
 
         public Cursor getTipoEvento() throws SQLException
         {
-            Cursor mCursor =  db.query(Conexao.TABELA_TIPO_EVENTO, new String[] {Conexao.ID,Conexao.TIPO_EVENTO}, null,null, null,null, null, null);
+            Cursor mCursor =  db.query(Conexao.TABELA_TIPO_EVENTO, new String[] {Conexao.ID_EVENTO,Conexao.TIPO_EVENTO}, null,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
             return mCursor;
 
         }
-        public Cursor getRepeticao() throws SQLException
+        public Cursor getTipoEventoByName(String tipoEvento) throws SQLException
         {
-            Cursor mCursor =  db.query(Conexao.TABELA_REPETICAO, new String[] {Conexao.ID,Conexao.TIPO_EVENTO}, null,null, null,null, null, null);
+            String whereClause = Conexao.TIPO_EVENTO+" LIKE '"+tipoEvento+"'";
+            Cursor mCursor =  db.query(Conexao.TABELA_TIPO_EVENTO, new String[] {Conexao.ID_EVENTO,Conexao.TIPO_EVENTO}, whereClause,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
             return mCursor;
 
         }
-
+/*
         public boolean updatePessoa(long cod, String name, String email)
         {
             ContentValues args = new ContentValues();
           //  args.put(NOME, name);
             return db.update(Conexao.NOME_BD, args, Conexao.ID + "=" + cod, null) > 0;
         }
+  */
     }
