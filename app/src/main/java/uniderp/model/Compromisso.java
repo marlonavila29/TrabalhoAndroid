@@ -3,6 +3,7 @@ package uniderp.model;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import uniderp.controller.AcessoBanco;
 /**
  * Created by Edithimar on 21/04/2016.
  */
-public class Compromisso {
+public class Compromisso implements Serializable {
 
     private String dataEvento;
     private int  horaInicio;

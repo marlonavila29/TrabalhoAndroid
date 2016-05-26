@@ -88,12 +88,32 @@ public class AcessoBanco {
             return mCursor;
 
         }
-/*
-        public boolean updatePessoa(long cod, String name, String email)
+        public Cursor getTipoEventoById(int idTipoEvento) throws SQLException
+        {
+            String whereClause = Conexao.ID_EVENTO+" = '"+idTipoEvento+"'";
+            Cursor mCursor =  db.query(Conexao.TABELA_TIPO_EVENTO, new String[] {Conexao.TIPO_EVENTO}, whereClause,null, null,null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
+
+        }
+
+        public boolean removerTipoEvento(int idTipoEvento) throws SQLException
+        {
+           long result=  db.delete(Conexao.TABELA_TIPO_EVENTO,Conexao.ID_EVENTO+" = "+idTipoEvento,null);
+            if(result == -1){
+                return false;
+            }
+
+            return true;
+        }
+
+        public boolean updateTipoEvento(int idTipoEvento, String tipoEvento)
         {
             ContentValues args = new ContentValues();
-          //  args.put(NOME, name);
-            return db.update(Conexao.NOME_BD, args, Conexao.ID + "=" + cod, null) > 0;
+            args.put(Conexao.TIPO_EVENTO, tipoEvento);
+            return db.update(Conexao.TABELA_TIPO_EVENTO, args, Conexao.ID_EVENTO + " = " +idTipoEvento, null) > 0;
         }
-  */
+
     }

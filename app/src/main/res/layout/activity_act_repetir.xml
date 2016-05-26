@@ -101,27 +101,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Concluído"
-        android:id="@+id/buttonConcluido"
-        android:layout_marginBottom="39dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp"
-        android:onClick="concluido" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Cancelar"
         android:id="@+id/buttonCancelar"
         android:onClick="cancelar"
-        android:layout_alignTop="@+id/buttonConcluido"
-        android:layout_toRightOf="@+id/buttonConcluido"
-        android:layout_toEndOf="@+id/buttonConcluido"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="57dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="36dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -176,5 +164,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="onClickCheckTermina" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:id="@+id/buttonSalvar"
+        android:layout_alignTop="@+id/buttonCancelar"
+        android:layout_alignLeft="@+id/editQtdeOcorrencia"
+        android:layout_alignStart="@+id/editQtdeOcorrencia"
+        android:onClick="salvarRepeticao" />
 
 </RelativeLayout>

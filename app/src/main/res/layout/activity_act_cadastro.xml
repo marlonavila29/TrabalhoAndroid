@@ -30,10 +30,9 @@
         android:id="@+id/editHoraEvento"
         android:hint="Hora de início"
         android:layout_below="@+id/editDataEvento"
-        android:layout_alignRight="@+id/buttonCancelar"
-        android:layout_alignEnd="@+id/buttonCancelar"
-        android:layout_toEndOf="@+id/buttonNovoTipoEvento"
-        android:layout_toRightOf="@+id/buttonNovoTipoEvento" />
+        android:layout_toRightOf="@+id/editHoraFim"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,11 +51,10 @@
         android:id="@+id/editDescricao"
         android:hint="Descrição do evento"
         android:layout_below="@+id/editLocalEvento"
-        android:layout_alignRight="@+id/buttonCancelar"
-        android:layout_alignEnd="@+id/buttonCancelar"
-        android:layout_toEndOf="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editHoraEvento"
+        android:layout_alignEnd="@+id/editHoraEvento" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -66,8 +64,8 @@
         android:layout_below="@+id/editDescricao"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/buttonCancelar"
-        android:layout_alignEnd="@+id/buttonCancelar" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,22 +81,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repetir"
-        android:id="@+id/buttonRepetir"
-        android:nestedScrollingEnabled="false"
-        android:onClick="repetir"
-        android:layout_alignTop="@+id/buttonSalvar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Salvar"
         android:id="@+id/buttonSalvar"
         android:onClick="salvarCompromisso"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <Button
         android:layout_width="wrap_content"
@@ -107,8 +95,10 @@
         android:id="@+id/buttonCancelar"
         android:onClick="cancelar"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/buttonSalvar"
+        android:layout_toEndOf="@+id/buttonSalvar"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -120,18 +110,8 @@
         android:layout_above="@+id/editLocalEvento"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/buttonNovoTipoEvento"
-        android:layout_toStartOf="@+id/buttonNovoTipoEvento" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New"
-        android:id="@+id/buttonNovoTipoEvento"
-        android:layout_below="@+id/editParticipantes"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_alignRight="@+id/buttonSalvar"
-        android:layout_alignEnd="@+id/buttonSalvar" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -141,16 +121,51 @@
         android:id="@+id/textView6"
         android:layout_below="@+id/editParticipantes"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/spinnerTipoEvento" />
+        android:layout_alignParentStart="true" />
 
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerTipoEvento"
-        android:layout_below="@+id/buttonNovoTipoEvento"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:longClickable="true"
+        android:layout_below="@+id/textView6"
+        android:layout_toStartOf="@+id/buttonSalvar"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView6"
+        android:layout_above="@+id/buttonSalvar"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_alignRight="@+id/editHoraEvento"
+        android:layout_alignEnd="@+id/editHoraEvento">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar"
+            android:id="@+id/radioCadastrarTipoEvento"
+            android:checked="false"
+            android:onClick="cadastrarTipoEvento" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alterar"
+            android:id="@+id/radioAlterarTipoEvento"
+            android:checked="false"
+            android:onClick="alterarTipoEvento" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deletar"
+            android:id="@+id/radioDeletarTipoEvento"
+            android:checked="false"
+            android:onClick="deletarTipoEvento" />
+    </RadioGroup>
 
 </RelativeLayout>

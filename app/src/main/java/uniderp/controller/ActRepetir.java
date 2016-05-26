@@ -8,8 +8,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import uniderp.appeventos.R;
+import uniderp.model.Compromisso;
 
 public class ActRepetir extends AppCompatActivity {
 
@@ -25,32 +31,37 @@ public class ActRepetir extends AppCompatActivity {
     RadioButton radioAnual;
     EditText editDataEvento;
     EditText editRepete ;
+    Compromisso compromisso = new Compromisso();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_repetir);
-        Intent intent = getIntent();
-        if(intent != null){
-            Bundle params = intent.getExtras();
-            if(params != null){
-                String dataInicio = params.getString("dataEvento");
-                TextView textInicio = (TextView) findViewById(R.id.textInicio);
-                textInicio.setText(dataInicio);
-            }
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            if(bundle.containsKey("COMPROMISSO") ){
+                compromisso = (Compromisso) bundle.get("COMPROMISSO");
+                TextView textInicio = (TextView) findViewById(R.id.textInicio);
+                textInicio.setText(compromisso.getDataEvento());
+            }
         }
         checkIndeterminado = (CheckBox) findViewById(R.id.checkIndeterminado);
         checkApos = (CheckBox) findViewById(R.id.checkApos);;
         checkTermina =(CheckBox) findViewById(R.id.checkTermina);
-
         editQtdeOcorrencia = (EditText) findViewById(R.id.editQtdeOcorrencia);
         editRepete = (EditText) findViewById(R.id.editRepete);
         editDataTermino =  (EditText) findViewById(R.id.editDataTermino);
+        editDataTermino.addTextChangedListener(Mask.insert(Mask.DATA_MASK, editDataTermino));
     }
-    /*Se radio button "indeterminado" estiver checado, os dois campos a baixo dele deverao estar
-    desabilitados*/
+
+    @Override
+    public void onBackPressed() {
+        Intent it = new Intent(this, MainActivity.class);
+        startActivity(it);
+    }
+
     public  void onClickCheckInterminado(View v){
         if(checkIndeterminado.isChecked()){
             editQtdeOcorrencia.setEnabled(false);
@@ -97,38 +108,158 @@ public class ActRepetir extends AppCompatActivity {
         }
     }
 
-    public void concluido(View v){
+    public void salvarRepeticao(View v){
+        if(isCamposPreenchidos()) {
+            final AcessoBanco db = new AcessoBanco(this);
+            radioDiario = (RadioButton) findViewById(R.id.radioDiario);
+            radioSemanal = (RadioButton) findViewById(R.id.radioSemanal);
+            radioMensal = (RadioButton) findViewById(R.id.radioMensal);
+            radioAnual = (RadioButton) findViewById(R.id.radioAnual);
+            editDataEvento = (EditText) findViewById(R.id.editDataEvento);
+
+            if (radioDiario.isChecked()) {
+                repeticao = "Diariamente";
+            } else if (radioSemanal.isChecked()) {
+                repeticao = "Semanalmente";
+            } else if (radioMensal.isChecked()) {
+                repeticao = "Mensalmente";
+            } else if (radioAnual.isChecked()) {
+                repeticao = "Anualmente";
+            }
+
+            if (checkApos.isChecked()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateInicio = null;
+                int tamIntervalo = Integer.parseInt(editRepete.getText().toString());
+                int qtdeOcorrencias = Integer.parseInt(editQtdeOcorrencia.getText().toString());
+                if (repeticao.equals("Diariamente")) {
+                    try {
+                        dateInicio = sdf.parse(compromisso.getDataEvento());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    while (qtdeOcorrencias > 0) {
+                        dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
+                        compromisso.setDataEvento(dateInicio.toString());
+                        db.open();
+                        long resultado = db.insereCompromisso(compromisso);
+                        db.close();
+                        if (resultado == -1)
+                            Toast.makeText(this, "Erro ao inserir registro!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(this, "Repetição(ões) criada(s) com sucesso!", Toast.LENGTH_SHORT).show();
+                            //Ao salvar, vai para tela inicial
+                            Intent it = new Intent(this, MainActivity.class);
+                            startActivity(it);
+                        }
+                    }
+                }
+                else if (repeticao.equals("Semanalmente")) {
+                    try {
+                        dateInicio = sdf.parse(compromisso.getDataEvento());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    //1 semana tem 7 dias
+                    tamIntervalo = tamIntervalo*7;
+                    while (qtdeOcorrencias > 0) {
+                        dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
+                        compromisso.setDataEvento(dateInicio.toString());
+                        db.open();
+                        long resultado = db.insereCompromisso(compromisso);
+                        db.close();
+                        if (resultado == -1)
+                            Toast.makeText(this, "Erro ao inserir registro!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(this, "Repetição(ões) criada(s) com sucesso!", Toast.LENGTH_SHORT).show();
+                            //Ao salvar, vai para tela inicial
+                            Intent it = new Intent(this, MainActivity.class);
+                            startActivity(it);
+                        }
+                    }
+                }
+                else if (repeticao.equals("Mensalmente")) {
+                    try {
+                        dateInicio = sdf.parse(compromisso.getDataEvento());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    while (qtdeOcorrencias > 0) {
+                        dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
+                        compromisso.setDataEvento(dateInicio.toString());
+                        db.open();
+                        long resultado = db.insereCompromisso(compromisso);
+                        db.close();
+                        if (resultado == -1)
+                            Toast.makeText(this, "Erro ao inserir registro!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(this, "Repetição(ões) criada(s) com sucesso!", Toast.LENGTH_SHORT).show();
+                            //Ao salvar, vai para tela inicial
+                            Intent it = new Intent(this, MainActivity.class);
+                            startActivity(it);
+                        }
+                    }
+                }
+                else if (repeticao.equals("Anualmente")) {
+                    try {
+                        dateInicio = sdf.parse(compromisso.getDataEvento());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    while (qtdeOcorrencias > 0) {
+                        dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
+                        compromisso.setDataEvento(dateInicio.toString());
+                        db.open();
+                        long resultado = db.insereCompromisso(compromisso);
+                        db.close();
+                        if (resultado == -1)
+                            Toast.makeText(this, "Erro ao inserir registro!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(this, "Repetição(ões) criada(s) com sucesso!", Toast.LENGTH_SHORT).show();
+                            //Ao salvar, vai para tela inicial
+                            Intent it = new Intent(this, MainActivity.class);
+                            startActivity(it);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean isCamposPreenchidos(){
         radioDiario = (RadioButton) findViewById(R.id.radioDiario);
         radioSemanal = (RadioButton) findViewById(R.id.radioSemanal);
         radioMensal = (RadioButton) findViewById(R.id.radioMensal);
         radioAnual = (RadioButton) findViewById(R.id.radioAnual);
-        editDataEvento = (EditText) findViewById(R.id.editDataEvento);
 
-        if(radioDiario.isChecked()){
-            repeticao = "Diariamente";
+        if(radioDiario.isChecked() == false && radioSemanal.isChecked() == false
+                && radioMensal.isChecked() == false && radioAnual.isChecked()== false) {
+            Toast.makeText(this, "Escolha alguma repetição!", Toast.LENGTH_SHORT).show();
+            return false;
         }
-        else if(radioSemanal.isChecked()){
-            repeticao = "Semanalmente";
+        else if(editRepete.getText().toString().isEmpty()){
+                Toast.makeText(this,"Insira o número de intervalos!",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        else if(!checkApos.isChecked() && !checkIndeterminado.isChecked() && !checkTermina.isChecked()){
+            Toast.makeText(this,"Marque alguma opção de término!",Toast.LENGTH_SHORT).show();
+            return false;
         }
-        else if(radioMensal.isChecked()){
-            repeticao = "Mensalmente";
+        else if(checkApos.isChecked()){
+            if(editQtdeOcorrencia.getText().toString().isEmpty()){
+                Toast.makeText(this,"Digite a quantidade de ocorrências",Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
-        else if(radioAnual.isChecked()){
-            repeticao = "Anualmente";
+        else if(checkTermina.isChecked()){
+            if(editDataTermino.getText().toString().isEmpty()){
+                Toast.makeText(this,"Digite a data de termino",Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
-
-        Intent intent = new Intent();
-        Bundle params = new Bundle();
-        params.putString("repeticao", repeticao);
-        params.putString("qtdeOcorrencia", editQtdeOcorrencia.getText().toString());
-        params.putBoolean("indeterminado",checkIndeterminado.isChecked() );
-        params.putInt("repete", Integer.parseInt(editRepete.getText().toString()));
-        params.putString("dataTermino", editDataTermino.getText().toString());
-
-        intent.putExtras(params);
-        setResult(1, intent);
-        super.finish();
+        return true;
     }
+
     public void cancelar(View v){
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
