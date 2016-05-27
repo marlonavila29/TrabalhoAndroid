@@ -109,6 +109,7 @@ public class AcessoBanco {
             return true;
         }
 
+
         public boolean updateTipoEvento(int idTipoEvento, String tipoEvento)
         {
             ContentValues args = new ContentValues();

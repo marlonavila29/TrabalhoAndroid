@@ -14,6 +14,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,11 +23,8 @@
             android:name="uniderp.controller.EditComp"
             android:label="@string/title_activity_edit_comp"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="uniderp.controller.ActRepetir"></activity>
-
-
-
-
+        <activity android:name="uniderp.controller.ActRepetir" />
+        <activity android:name="uniderp.controller.ActCompromissos"></activity>
     </application>
 
 </manifest>

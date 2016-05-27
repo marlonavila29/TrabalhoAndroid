@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    public void visualizarCompromissos(View v){
+        Intent actCompromissos = new Intent(this, ActCompromissos.class);
+        startActivity(actCompromissos);
+    }
     public void cadastrarCompromisso(View v){
         Intent actCadastro = new Intent(this, ActCadastro.class);
         startActivity(actCadastro);
