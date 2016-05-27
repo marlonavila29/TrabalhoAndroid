@@ -17,7 +17,7 @@ public class Conexao extends SQLiteOpenHelper {
 
 
         public static final String NOME_BD = "trabalho.db";
-        public static final int DATABASE_VERSION = 14;
+        public static final int DATABASE_VERSION = 16;
 
         //Tabela "compromisso"
         public static final String TABELA_COMPROMISSO = "tab_compromisso";
@@ -31,7 +31,7 @@ public class Conexao extends SQLiteOpenHelper {
         public static final String PARTICIPANTES = "participantes";
         public static final String ID_TIPO_EVENTO = "id_tipo_evento";
 
-    //Tabela "tipo_evento"
+       //Tabela "tipo_evento"
         public static final String TABELA_TIPO_EVENTO = "tab_tipo_evento";
         //dados da tabela tipo_evento
         public static final String ID_EVENTO = "id_tipo_evento";

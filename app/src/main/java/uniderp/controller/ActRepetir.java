@@ -161,6 +161,7 @@ public class ActRepetir extends AppCompatActivity {
         int qtdeOcorrencias = diasDiff/tamIntervalo;
         if (repeticao.equals("Diariamente")) {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -203,6 +204,7 @@ public class ActRepetir extends AppCompatActivity {
             }
         } else if (repeticao.equals("Mensalmente")) {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -222,6 +224,7 @@ public class ActRepetir extends AppCompatActivity {
             }
         } else if (repeticao.equals("Anualmente")) {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -237,8 +240,9 @@ public class ActRepetir extends AppCompatActivity {
                     Intent it = new Intent(this, MainActivity.class);
                     startActivity(it);
                 }
+                qtdeOcorrencias--;
             }
-            qtdeOcorrencias--;
+
         }
     }
     public void cadastrarApos() {
@@ -255,6 +259,7 @@ public class ActRepetir extends AppCompatActivity {
         int tamIntervalo = Integer.parseInt(editRepete.getText().toString());
         int qtdeOcorrencias = Integer.parseInt(editQtdeOcorrencia.getText().toString());
         if (repeticao.equals("Diariamente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -294,6 +299,7 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Mensalmente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -312,6 +318,7 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Anualmente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -327,8 +334,9 @@ public class ActRepetir extends AppCompatActivity {
                     Intent it = new Intent(this, MainActivity.class);
                     startActivity(it);
                 }
+                qtdeOcorrencias--;
             }
-            qtdeOcorrencias--;
+
         }
     }
     public void cadastrarIndeterminado(final int PADRAO_SISTEMA_CHECK_INDETERMINADO) {
@@ -345,6 +353,7 @@ public class ActRepetir extends AppCompatActivity {
         int tamIntervalo = Integer.parseInt(editRepete.getText().toString());
         int qtdeOcorrencias = PADRAO_SISTEMA_CHECK_INDETERMINADO;
         if (repeticao.equals("Diariamente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -384,6 +393,7 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Mensalmente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -402,6 +412,7 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Anualmente")) {
+            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -417,8 +428,9 @@ public class ActRepetir extends AppCompatActivity {
                     Intent it = new Intent(this, MainActivity.class);
                     startActivity(it);
                 }
+                qtdeOcorrencias--;
             }
-            qtdeOcorrencias--;
+
         }
     }
 
