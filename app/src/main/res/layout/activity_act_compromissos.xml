@@ -12,28 +12,27 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/dataInicio"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:hint="Data Inicio"
+        android:layout_toStartOf="@+id/dataFim" />
+
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/dataFim"
+        android:layout_alignTop="@+id/editText"
+        android:layout_centerHorizontal="true"
+        android:hint="Data Fim"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listCompromissos"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/dataFim"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="40dp" />
@@ -44,6 +43,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Compromissos cadastrados:"
         android:id="@+id/textView7"
-        android:layout_below="@+id/editText2" />
+        android:layout_below="@+id/dataFim" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        android:id="@+id/buscarComp"
+        android:layout_above="@+id/listCompromissos"
+        android:layout_alignRight="@+id/listCompromissos"
+        android:layout_alignEnd="@+id/listCompromissos"
+        android:layout_toEndOf="@+id/dataFim"
+
+        android:layout_toRightOf="@+id/dataFim"
+        android:onClick="filtarCompromissos" />
 
 </RelativeLayout>
