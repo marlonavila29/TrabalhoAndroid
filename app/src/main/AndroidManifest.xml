@@ -19,12 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name="uniderp.controller.ActCadastro" />
-        <activity
-            android:name="uniderp.controller.EditComp"
-            android:label="@string/title_activity_edit_comp"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="uniderp.controller.ActRepetir" />
-        <activity android:name="uniderp.controller.ActCompromissos"></activity>
+        <activity android:name="uniderp.controller.ActCompromissos" />
+        <activity android:name="uniderp.controller.ActEditarCompromisso"></activity>
     </application>
 
 </manifest>

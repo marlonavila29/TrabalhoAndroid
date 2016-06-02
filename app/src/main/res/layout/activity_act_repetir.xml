@@ -101,15 +101,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancelar"
+        android:text="Cancelar Operação"
         android:id="@+id/buttonCancelar"
         android:onClick="cancelar"
+        android:layout_marginBottom="36dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="57dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="36dp" />
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -168,11 +166,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:text="Salvar Repetição"
         android:id="@+id/buttonSalvar"
+        android:onClick="salvarRepeticao"
         android:layout_alignTop="@+id/buttonCancelar"
-        android:layout_alignLeft="@+id/editQtdeOcorrencia"
-        android:layout_alignStart="@+id/editQtdeOcorrencia"
-        android:onClick="salvarRepeticao" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

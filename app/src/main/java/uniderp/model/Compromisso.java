@@ -19,6 +19,7 @@ import uniderp.controller.AcessoBanco;
  */
 public class Compromisso implements Serializable {
 
+    private int idCompromisso;
     private String dataEvento;
     private int  horaInicio;
     private int  horaFim;
@@ -125,5 +126,13 @@ public class Compromisso implements Serializable {
 
     public void setIdTipoEvento(int idTipoEvento) {
         this.idTipoEvento = idTipoEvento;
+    }
+
+    public int getIdCompromisso() {
+        return idCompromisso;
+    }
+
+    public void setIdCompromisso(int idCompromisso) {
+        this.idCompromisso = idCompromisso;
     }
 }

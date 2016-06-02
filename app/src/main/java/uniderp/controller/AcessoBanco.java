@@ -98,6 +98,17 @@ public class AcessoBanco {
             return mCursor;
 
         }
+        public Cursor getCompromissoById(int idCompromisso) throws SQLException
+        {
+            String whereClause = Conexao.ID_COMPROMISSO+" = '"+idCompromisso+"'";
+            Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.ID_COMPROMISSO, Conexao.DATA_EVENTO,Conexao.HORA_INICIO
+                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.ID_TIPO_EVENTO}, whereClause,null, null,null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
+
+        }
 
         public boolean removerTipoEvento(int idTipoEvento) throws SQLException
         {
@@ -106,6 +117,14 @@ public class AcessoBanco {
                 return false;
             }
 
+            return true;
+        }
+        public boolean removerCompromissos(int idCompromisso) throws SQLException
+        {
+            long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
+            if(result == -1){
+                return false;
+            }
             return true;
         }
 

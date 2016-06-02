@@ -137,7 +137,7 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
         final AcessoBanco db = new AcessoBanco(this);
         db.open();
         if(db.removerTipoEvento(compromisso.getIdTipoEvento()) == false){
-            Toast.makeText(this,"Erro ao deletar registro",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Erro ao deletar registro",Toast.LENGTH_SHORT).show();Toast.makeText(this,"Erro ao deletar registro",Toast.LENGTH_SHORT).show();
         }
         else
             Toast.makeText(this,"Regristro deletado com sucesso",Toast.LENGTH_SHORT).show();
@@ -197,7 +197,7 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
                         .setNegativeButton("Não criar",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
+                                        voltarMain();
                                     }
                                 });
 
@@ -307,6 +307,11 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void cancelar(View v){
+        Intent it = new Intent(this, MainActivity.class);
+        startActivity(it);
+    }
+
+    public void voltarMain(){
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
     }
