@@ -30,6 +30,7 @@ public class Conexao extends SQLiteOpenHelper {
         public static final String ID_COMPROMISSO = "id_compromisso";
         public static final String PARTICIPANTES = "participantes";
         public static final String ID_TIPO_EVENTO = "id_tipo_evento";
+        public static final String IS_REPETICAO = "is_repeticao";
 
        //Tabela "tipo_evento"
         public static final String TABELA_TIPO_EVENTO = "tab_tipo_evento";
@@ -41,7 +42,7 @@ public class Conexao extends SQLiteOpenHelper {
         private static final String DATABASE_CREATE_COMPROMISSO = "CREATE TABLE " +TABELA_COMPROMISSO+" ( " + ID_COMPROMISSO + " integer PRIMARY KEY autoincrement, "
                 + DATA_EVENTO + " text, " + HORA_INICIO + " integer, " + HORA_FIM + " integer, " +
                 LOCAL_REALIZACAO + " text, " + DESCRICAO + " text, "
-                + PARTICIPANTES + " text, " +ID_TIPO_EVENTO +" integer," +" FOREIGN KEY("+ID_TIPO_EVENTO+") REFERENCES "+TABELA_TIPO_EVENTO+
+                + PARTICIPANTES + " text, "+IS_REPETICAO+" integer, "+ID_TIPO_EVENTO +" integer," +" FOREIGN KEY("+ID_TIPO_EVENTO+") REFERENCES "+TABELA_TIPO_EVENTO+
                 "("+ID_EVENTO+")"+" )";
 
 

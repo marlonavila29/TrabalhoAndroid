@@ -28,6 +28,7 @@ public class Compromisso implements Serializable {
     private String participantes;
     private String repeticao;
     private int idTipoEvento;
+    private int isRepeticao;
 
     public static Compromisso cadastrarCompromisso(EditText editDataEvento,EditText editHoraEvento,EditText editHoraFim,
                                             EditText editLocalEvento,EditText editDescricao,
@@ -41,6 +42,8 @@ public class Compromisso implements Serializable {
         compromisso.setDescricao(editDescricao.getText().toString());
         compromisso.setParticipantes(editParticipantes.getText().toString());
         compromisso.setIdTipoEvento(idTipoEvento);
+
+
 
 
         return compromisso;
@@ -134,5 +137,13 @@ public class Compromisso implements Serializable {
 
     public void setIdCompromisso(int idCompromisso) {
         this.idCompromisso = idCompromisso;
+    }
+
+    public int getIsRepeticao() {
+        return isRepeticao;
+    }
+
+    public void setIsRepeticao(int isRepeticao) {
+        this.isRepeticao = isRepeticao;
     }
 }

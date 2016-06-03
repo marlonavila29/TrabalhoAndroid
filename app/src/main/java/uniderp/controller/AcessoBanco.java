@@ -48,9 +48,15 @@ public class AcessoBanco {
             initialValuesCompromisso.put(Conexao.LOCAL_REALIZACAO, compromisso.getLocalRealizacao());
             initialValuesCompromisso.put(Conexao.PARTICIPANTES, compromisso.getParticipantes());
             initialValuesCompromisso.put(Conexao.ID_TIPO_EVENTO, compromisso.getIdTipoEvento());
+            if(compromisso.getIsRepeticao()==-1) {
+                initialValuesCompromisso.put(Conexao.IS_REPETICAO, -1);
+            }
+            else if(compromisso.getIsRepeticao() == -2){
 
-            return db.insert(Conexao.TABELA_COMPROMISSO, null, initialValuesCompromisso);
-
+                //cadastra em IS_REPETICAO o codigo do compromisso PAI - Para no futuro poder excluir e alterar
+                initialValuesCompromisso.put(Conexao.IS_REPETICAO, compromisso.getIdCompromisso());
+            }
+            return  db.insert(Conexao.TABELA_COMPROMISSO, null, initialValuesCompromisso);
         }
         public long insereTipoEvento(String tipoEvento){
             ContentValues initialValuesTipoEvento = new ContentValues();
@@ -61,7 +67,7 @@ public class AcessoBanco {
         public Cursor getCompromissos() throws SQLException
         {
             Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.ID_COMPROMISSO, Conexao.DATA_EVENTO,Conexao.HORA_INICIO
-                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.ID_TIPO_EVENTO}, null,null, null,null, null, null);
+                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.IS_REPETICAO,Conexao.ID_TIPO_EVENTO}, null,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }

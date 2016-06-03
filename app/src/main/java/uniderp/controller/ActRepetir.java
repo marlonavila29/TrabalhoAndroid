@@ -166,6 +166,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -189,6 +190,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -209,6 +211,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -229,6 +232,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -263,6 +267,7 @@ public class ActRepetir extends AppCompatActivity {
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
+                compromisso.setIsRepeticao(-2);
                 compromisso.setDataEvento(reportDate);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
@@ -284,6 +289,7 @@ public class ActRepetir extends AppCompatActivity {
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
+                compromisso.setIsRepeticao(-2);
                 compromisso.setDataEvento(reportDate);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
@@ -304,6 +310,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -323,6 +330,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -358,6 +366,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -379,6 +388,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -398,6 +408,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();
@@ -417,6 +428,7 @@ public class ActRepetir extends AppCompatActivity {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
                 compromisso.setDataEvento(reportDate);
+                compromisso.setIsRepeticao(-2);
                 db.open();
                 long resultado = db.insereCompromisso(compromisso);
                 db.close();

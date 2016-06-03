@@ -174,9 +174,11 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
 
         if(isCamposPreenchidos() && validacoes()){
             compromisso = Compromisso.cadastrarCompromisso(editDataEvento,editHoraEvento,editHoraFim,editLocalEvento,editDescricao, editParticipantes, idTipoEvento);
+            //Não é repeticao
+            compromisso.setIsRepeticao(-1);
             db.open();
             long resultado = db.insereCompromisso(compromisso);
-            db.close();
+;           db.close();
             if (resultado == -1)
                 Toast.makeText(this,"Erro ao inserir registro",Toast.LENGTH_SHORT).show();
             else {
@@ -301,6 +303,15 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void repetir(){
+        //Atualizando o codigo do compromisso cadastrado para o objeto
+        AcessoBanco db = new AcessoBanco(this);
+        db.open();
+        Cursor c = db.getCompromissos();
+        db.close();
+        if (c != null) {
+            c.moveToLast();
+        }
+        compromisso.setIdCompromisso(c.getInt(0));
             Intent params = new Intent(this, ActRepetir.class);
             params.putExtra("COMPROMISSO",  compromisso);
             startActivity(params);

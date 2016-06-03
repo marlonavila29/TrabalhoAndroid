@@ -77,7 +77,8 @@ public class ActCompromissos extends AppCompatActivity
                 compromisso.setLocalRealizacao(c.getString(4));
                 compromisso.setDescricao(c.getString(5));
                 compromisso.setParticipantes(c.getString(6));
-                compromisso.setIdTipoEvento(c.getInt(7));
+                compromisso.setIsRepeticao(c.getInt(7));
+                compromisso.setIdTipoEvento(c.getInt(8));
 
                 Intent params = new Intent(getApplicationContext(), ActEditarCompromisso.class);
                 params.putExtra("COMPROMISSO",  compromisso);
