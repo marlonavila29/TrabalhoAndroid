@@ -17,7 +17,7 @@ public class Conexao extends SQLiteOpenHelper {
 
 
         public static final String NOME_BD = "trabalho.db";
-        public static final int DATABASE_VERSION = 16;
+        public static final int DATABASE_VERSION = 20;
 
         //Tabela "compromisso"
         public static final String TABELA_COMPROMISSO = "tab_compromisso";

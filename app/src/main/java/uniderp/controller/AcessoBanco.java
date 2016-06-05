@@ -48,7 +48,7 @@ public class AcessoBanco {
             initialValuesCompromisso.put(Conexao.LOCAL_REALIZACAO, compromisso.getLocalRealizacao());
             initialValuesCompromisso.put(Conexao.PARTICIPANTES, compromisso.getParticipantes());
             initialValuesCompromisso.put(Conexao.ID_TIPO_EVENTO, compromisso.getIdTipoEvento());
-            if(compromisso.getIsRepeticao()==-1) {
+            if(compromisso.getIsRepeticao()== -1) {
                 initialValuesCompromisso.put(Conexao.IS_REPETICAO, -1);
             }
             else if(compromisso.getIsRepeticao() == -2){
@@ -108,7 +108,7 @@ public class AcessoBanco {
         {
             String whereClause = Conexao.ID_COMPROMISSO+" = '"+idCompromisso+"'";
             Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.ID_COMPROMISSO, Conexao.DATA_EVENTO,Conexao.HORA_INICIO
-                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.ID_TIPO_EVENTO}, whereClause,null, null,null, null, null);
+                    ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.IS_REPETICAO,Conexao.ID_TIPO_EVENTO}, whereClause,null, null,null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
