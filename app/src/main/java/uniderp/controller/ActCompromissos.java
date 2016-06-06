@@ -96,7 +96,7 @@ public class ActCompromissos extends AppCompatActivity
         listCompromissos.setAdapter(adaptador);
     }
 
-    public  void filtarCompromissos(View v){
+    public  void filtrarCompromissos(View v){
         //Comparar data inicil com data fim com a lista de compromissos
 
         EditText editDataInicio = (EditText) findViewById(R.id.dataInicio);
@@ -108,7 +108,7 @@ public class ActCompromissos extends AppCompatActivity
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dataInicio = null;
             Date dataFim = null;
-            String dataCompromissoStr = "";
+            String dataCompromissoStr = "";frw4
             Date dataCompromisso = null;
 
             try {
