@@ -129,7 +129,7 @@ public class ActCompromissos extends AppCompatActivity
                 }
 
 
-                if (dataCompromisso.after(dataInicio) && dataCompromisso.before(dataFim)) {
+                if ((dataCompromisso.after(dataInicio) || dataCompromisso.equals(dataInicio) ) && (dataCompromisso.before(dataFim) || dataCompromisso.equals(dataFim) )  ) {
                     arrayCompromisso.add(arrayListCompromissos.get(i));
                 }
             }

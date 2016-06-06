@@ -11,6 +11,12 @@ package uniderp.controller;
     import android.database.sqlite.SQLiteDatabase;
     import android.widget.EditText;
 
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.util.ArrayList;
+    import java.util.Date;
+    import java.util.List;
+
     import uniderp.model.Compromisso;
 
 public class AcessoBanco {
@@ -125,12 +131,71 @@ public class AcessoBanco {
 
             return true;
         }
-        public boolean removerCompromissos(int idCompromisso) throws SQLException
+        public boolean removerCompromissos(Compromisso compromisso) throws SQLException
         {
-            long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
+            List<Integer> listidCompromissoRepeticoes = new ArrayList<Integer>();
+            // Ao excluir, ver se tem repeção ou se é repetiçao, se for, deleta todas as repetições
+            if(compromisso.getIsRepeticao() == -1){
+                //Não é uma repetição, porém ver se tem repetições DELE
+                Cursor mCursor =  getCompromissos();
+                if (mCursor != null) {
+                    mCursor.moveToFirst();
+                }
+                do {
+                    if(mCursor.getInt(7) == compromisso.getIdCompromisso() ){
+                        // a data precisa ser maior ou igual
+                        String dataEventoStr = mCursor.getString(1);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Date dataEvento = null;
+                        Date dataEventoRepeticao = null;
+                        try {
+                             dataEvento = sdf.parse(compromisso.getDataEvento());
+                             dataEventoRepeticao = sdf.parse(dataEventoStr);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(dataEventoRepeticao.before(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
+                            listidCompromissoRepeticoes.add(mCursor.getInt(0));
+                        }
+                    }
+                } while (mCursor.moveToNext());
+            }
+            else{
+                // ele é uma repetição, devo excluir as outras
+                Cursor mCursor =  getCompromissos();
+                if (mCursor != null) {
+                    mCursor.moveToFirst();
+                }
+                do {
+                    if(mCursor.getInt(7) == compromisso.getIsRepeticao() ){
+                        // a data precisa ser maior ou igual
+                        String dataEventoStr = mCursor.getString(1);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Date dataEvento = null;
+                        Date dataEventoRepeticao = null;
+                        try {
+                            dataEvento = sdf.parse(compromisso.getDataEvento());
+                            dataEventoRepeticao = sdf.parse(dataEventoStr);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(dataEventoRepeticao.before(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
+                            listidCompromissoRepeticoes.add(mCursor.getInt(0));
+                        }
+                    }
+                } while (mCursor.moveToNext());
+
+            }
+            long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+compromisso.getIdCompromisso(),null);
             if(result == -1){
                 return false;
             }
+            int i = listidCompromissoRepeticoes.size();
+            while(!listidCompromissoRepeticoes.isEmpty()){
+                 db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+listidCompromissoRepeticoes.get(i),null);
+                i--;
+            }
+
             return true;
         }
 
@@ -142,4 +207,52 @@ public class AcessoBanco {
             return db.update(Conexao.TABELA_TIPO_EVENTO, args, Conexao.ID_EVENTO + " = " +idTipoEvento, null) > 0;
         }
 
-    }
+        public boolean updateCompromisso(Compromisso compromisso) {
+            List<Integer> listidCompromissoRepeticoes = new ArrayList<Integer>();
+            ContentValues args = new ContentValues();
+            args.put(Conexao.DATA_EVENTO, String.valueOf(compromisso.getDataEvento()));
+            args.put(Conexao.DESCRICAO, compromisso.getDescricao());
+            args.put(Conexao.HORA_INICIO, compromisso.getHoraInicio());
+            args.put(Conexao.HORA_FIM, compromisso.getHoraInicio());
+            args.put(Conexao.LOCAL_REALIZACAO, compromisso.getLocalRealizacao());
+            args.put(Conexao.PARTICIPANTES, compromisso.getParticipantes());
+            args.put(Conexao.ID_TIPO_EVENTO, compromisso.getIdTipoEvento());
+
+            //verificar todos as repeticoes para tal e alterar também
+
+            Cursor mCursor = getCompromissos();
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            do {
+                if (mCursor.getInt(7) == compromisso.getIdCompromisso()) {
+                    // a data precisa ser maior ou igual
+                    String dataEventoStr = mCursor.getString(1);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date dataEvento = null;
+                    Date dataEventoRepeticao = null;
+                    try {
+                        dataEvento = sdf.parse(compromisso.getDataEvento());
+                        dataEventoRepeticao = sdf.parse(dataEventoStr);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (dataEventoRepeticao.before(dataEvento) || dataEventoRepeticao.equals(dataEvento)) {
+                        listidCompromissoRepeticoes.add(mCursor.getInt(0));
+                    }
+                }
+            } while (mCursor.moveToNext());
+            int i = listidCompromissoRepeticoes.size();
+            boolean result =  db.update(Conexao.TABELA_COMPROMISSO, args, Conexao.ID_COMPROMISSO + " = " +compromisso.getIdCompromisso(), null) > 0;
+            while(!listidCompromissoRepeticoes.isEmpty()){
+                boolean resultadoRepeticao = db.update(Conexao.TABELA_COMPROMISSO, args, Conexao.ID_COMPROMISSO + " = " + listidCompromissoRepeticoes.get(i), null) > 0;
+                i--;
+            }
+
+            return result;
+
+        }
+
+
+
+}
