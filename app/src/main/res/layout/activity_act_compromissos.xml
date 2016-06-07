@@ -47,7 +47,7 @@
         android:text="Filtrar"
         android:id="@+id/buscarComp"
 
-        android:onClick="filtarCompromissos"
+        android:onClick="filtrarCompromissos"
         android:layout_alignTop="@+id/dataFim"
         android:layout_alignRight="@+id/listCompromissos"
         android:layout_alignEnd="@+id/listCompromissos"

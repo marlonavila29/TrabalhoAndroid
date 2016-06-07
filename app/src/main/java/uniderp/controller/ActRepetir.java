@@ -154,13 +154,14 @@ public class ActRepetir extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        for (diasDiff = 0; dataTermino.after(dateInicio); diasDiff++) {
-            dataTermino.setDate(dataTermino.getDate() - 1);
-        }
-        int qtdeOcorrencias = diasDiff/tamIntervalo;
+
+
         if (repeticao.equals("Diariamente")) {
+            for (diasDiff = 0; dataTermino.after(dateInicio); diasDiff++) {
+                dataTermino.setDate(dataTermino.getDate() - 1);
+            }
+            int qtdeOcorrencias = diasDiff/tamIntervalo;
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -181,7 +182,12 @@ public class ActRepetir extends AppCompatActivity {
             }
         }
         else if (repeticao.equals("Semanalmente")) {
+
+            for (diasDiff = 0; dataTermino.after(dateInicio); diasDiff++) {
+                dataTermino.setDate(dataTermino.getDate() - 1);
+            }
             //1 semana tem 7 dias
+            int qtdeOcorrencias = diasDiff/tamIntervalo;
             tamIntervalo = tamIntervalo * 7;
             qtdeOcorrencias = qtdeOcorrencias/7;
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -203,9 +209,15 @@ public class ActRepetir extends AppCompatActivity {
                 }
                 qtdeOcorrencias--;
             }
-        } else if (repeticao.equals("Mensalmente")) {
+        }
+        else if (repeticao.equals("Mensalmente")) {
+            int mesDiff;
+            for (mesDiff = 0; dataTermino.after(dateInicio); mesDiff++) {
+                dataTermino.setMonth(dataTermino.getMonth() - 1);
+            }
+            int qtdeOcorrencias = mesDiff/tamIntervalo;
+
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -224,9 +236,14 @@ public class ActRepetir extends AppCompatActivity {
                 }
                 qtdeOcorrencias--;
             }
-        } else if (repeticao.equals("Anualmente")) {
+        }
+        else if (repeticao.equals("Anualmente")) {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            qtdeOcorrencias = qtdeOcorrencias/tamIntervalo;
+            int anoDiff;
+            for (anoDiff = 0; dataTermino.after(dateInicio); anoDiff++) {
+                dataTermino.setYear(dataTermino.getYear() - 1);
+            }
+            int qtdeOcorrencias = anoDiff/tamIntervalo;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -262,7 +279,6 @@ public class ActRepetir extends AppCompatActivity {
         int qtdeOcorrencias = Integer.parseInt(editQtdeOcorrencia.getText().toString());
 
         if (repeticao.equals("Diariamente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -284,7 +300,6 @@ public class ActRepetir extends AppCompatActivity {
         } else if (repeticao.equals("Semanalmente")) {
             //1 semana tem 7 dias
             tamIntervalo = tamIntervalo * 7;
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -304,7 +319,6 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Mensalmente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -324,7 +338,6 @@ public class ActRepetir extends AppCompatActivity {
                 qtdeOcorrencias--;
             }
         } else if (repeticao.equals("Anualmente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -360,7 +373,6 @@ public class ActRepetir extends AppCompatActivity {
         int tamIntervalo = Integer.parseInt(editRepete.getText().toString());
         int qtdeOcorrencias = PADRAO_SISTEMA_CHECK_INDETERMINADO;
         if (repeticao.equals("Diariamente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -379,10 +391,10 @@ public class ActRepetir extends AppCompatActivity {
                 }
                 qtdeOcorrencias--;
             }
-        } else if (repeticao.equals("Semanalmente")) {
+        }
+        else if (repeticao.equals("Semanalmente")) {
             //1 semana tem 7 dias
             tamIntervalo = tamIntervalo * 7;
-            qtdeOcorrencias = qtdeOcorrencias;
             while (qtdeOcorrencias > 0) {
                 dateInicio.setDate(dateInicio.getDate() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -401,8 +413,8 @@ public class ActRepetir extends AppCompatActivity {
                 }
                 qtdeOcorrencias--;
             }
-        } else if (repeticao.equals("Mensalmente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
+        }
+        else if (repeticao.equals("Mensalmente")) {
             while (qtdeOcorrencias > 0) {
                 dateInicio.setMonth(dateInicio.getMonth() + tamIntervalo);
                 String reportDate = df.format(dateInicio);
@@ -421,8 +433,8 @@ public class ActRepetir extends AppCompatActivity {
                 }
                 qtdeOcorrencias--;
             }
-        } else if (repeticao.equals("Anualmente")) {
-            qtdeOcorrencias = qtdeOcorrencias;
+        }
+        else if (repeticao.equals("Anualmente")) {
             while (qtdeOcorrencias > 0) {
                 dateInicio.setYear(dateInicio.getYear() + tamIntervalo);
                 String reportDate = df.format(dateInicio);

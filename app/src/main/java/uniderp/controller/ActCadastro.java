@@ -263,7 +263,7 @@ public class ActCadastro extends AppCompatActivity implements AdapterView.OnItem
         try {
             Date dataHoje = new Date(System.currentTimeMillis());
             Date data = sdf.parse(dataString);
-            if(data.before(dataHoje)) {
+            if(data.before(dataHoje) || data.equals(dataHoje)) {
                 Toast.makeText(this, "Escolha uma data maior ou igual que hoje!", Toast.LENGTH_SHORT).show();
                 return false;
             }

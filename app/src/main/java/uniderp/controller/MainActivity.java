@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity{
                             db.exupurgarCompromissos(codigosCompromissoParaExcluir.get(i));
                             //FAZER: fechar conexao
                             db.close();
+                            Toast.makeText(getBaseContext(),"Registros expurgado com sucesso!",Toast.LENGTH_SHORT).show();
 
                         }
                     }

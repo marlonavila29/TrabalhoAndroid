@@ -65,7 +65,6 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
             editParticipantes.setText(compromisso.getParticipantes());
             editDescricao.setText(compromisso.getDescricao());
             spinnerTipoEvento = (Spinner) findViewById(R.id.spinnerTipoEvento);
-
             carregarSpinner(compromisso.getIdTipoEvento());
 
 
@@ -112,8 +111,11 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
 
         spinnerTipoEvento.setAdapter(dataAdapter);
 
-        if(idTipoEventoSelecionado != 0 ) {
+        if(idTipoEventoSelecionado != -1 ) {
             spinnerTipoEvento.setSelection(idTipoEventoSelecionado);
+            ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcoesTipoEvento);
+            // Drop down layout style - list view with radio button
+            dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }
 
     }
@@ -134,7 +136,7 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
                             db.open();
                             db.insereTipoEvento(editTipoEvento.getText().toString());
                             db.close();
-                            carregarSpinner(0);
+                            carregarSpinner(-1);
                         }
                     }
                 })
@@ -163,7 +165,7 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
         Cursor c = db.getTipoEventoById(compromisso.getIdTipoEvento());
         db.close();
         final String tipoEventoTemp;
-        editTipoEvento.setText(c.getString(0));
+        editTipoEvento.setText(c.getString(-1));
         // setup a dialog window
 
         alertDialogBuilder.setCancelable(false)
@@ -173,7 +175,7 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
                             db.open();
                             db.updateTipoEvento(compromisso.getIdTipoEvento(),editTipoEvento.getText().toString());
                             db.close();
-                            carregarSpinner(0);
+                            carregarSpinner(-1);
                         }
                     }
                 })
@@ -191,13 +193,12 @@ public class ActEditarCompromisso extends AppCompatActivity implements AdapterVi
         final AcessoBanco db = new AcessoBanco(this);
         db.open();
         if(db.removerTipoEvento(compromisso.getIdTipoEvento()) == false){
-            Toast.makeText(this,"Erro ao deletar registro",Toast.LENGTH_SHORT).show();Toast.makeText(this,"Erro ao deletar registro",Toast.LENGTH_SHORT).show();
-        }
+                    }
         else
             Toast.makeText(this,"Regristro deletado com sucesso",Toast.LENGTH_SHORT).show();
         db.close();
 
-        carregarSpinner(0);
+        carregarSpinner(-1);
     }
 
     @Override

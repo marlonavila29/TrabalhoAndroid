@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Novo Evento:"
+        android:text="Evento:"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -128,9 +128,8 @@
         android:id="@+id/spinnerTipoEvento"
         android:longClickable="true"
         android:layout_below="@+id/textView6"
-        android:layout_toStartOf="@+id/buttonSalvar"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_toStartOf="@+id/radioGroup"
+        android:layout_toLeftOf="@+id/radioGroup" />
 
     <RadioGroup
         android:layout_width="match_parent"
