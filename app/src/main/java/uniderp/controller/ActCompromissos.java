@@ -85,7 +85,6 @@ public class ActCompromissos extends AppCompatActivity
                 startActivity(params);
             }
         });
-
     }
 
     public void limparFiltros(View v){
@@ -108,7 +107,7 @@ public class ActCompromissos extends AppCompatActivity
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dataInicio = null;
             Date dataFim = null;
-            String dataCompromissoStr = "";frw4
+            String dataCompromissoStr = "";
             Date dataCompromisso = null;
 
             try {

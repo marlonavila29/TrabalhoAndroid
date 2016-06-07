@@ -17,8 +17,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="Data Inicio"
-        android:layout_toStartOf="@+id/button"
-        android:layout_toLeftOf="@+id/button" />
+        android:layout_toStartOf="@+id/buttonExpurgar"
+        android:layout_toLeftOf="@+id/buttonExpurgar" />
 
 
     <EditText
@@ -28,8 +28,8 @@
         android:hint="Data Fim"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/buscarComp"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+        android:layout_alignLeft="@+id/buttonExpurgar"
+        android:layout_alignStart="@+id/buttonExpurgar" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Eventos cadastrados:"
         android:id="@+id/textView7"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/buttonExpurgar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -51,13 +51,13 @@
         android:layout_alignTop="@+id/dataFim"
         android:layout_alignRight="@+id/listCompromissos"
         android:layout_alignEnd="@+id/listCompromissos"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/buttonExpurgar" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Limpar "
-        android:id="@+id/button"
+        android:id="@+id/buttonExpurgar"
         android:onClick="limparFiltros"
         android:layout_below="@+id/dataInicio"
         android:layout_centerHorizontal="true" />

@@ -131,6 +131,13 @@ public class AcessoBanco {
 
             return true;
         }
+    public boolean exupurgarCompromissos(int idCompromisso) throws SQLException {
+        long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
+        if(result == -1){
+            return false;
+        }
+        return true;
+    }
         public boolean removerCompromissos(Compromisso compromisso) throws SQLException
         {
             List<Integer> listidCompromissoRepeticoes = new ArrayList<Integer>();
@@ -206,6 +213,7 @@ public class AcessoBanco {
             args.put(Conexao.TIPO_EVENTO, tipoEvento);
             return db.update(Conexao.TABELA_TIPO_EVENTO, args, Conexao.ID_EVENTO + " = " +idTipoEvento, null) > 0;
         }
+
 
         public boolean updateCompromisso(Compromisso compromisso) {
             List<Integer> listidCompromissoRepeticoes = new ArrayList<Integer>();
