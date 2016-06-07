@@ -77,15 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                         Cursor c = null;
-                        //FAZER: Trazer do banco todos os compromisso  (getCompromisso) e "colocar" na variavel "c"
-                    public Cursor getCompromissos() throws SQLException
-                    {
-                        Cursor mCursor =  db.query(Conexao.TABELA_COMPROMISSO, new String[] {Conexao.ID_COMPROMISSO, Conexao.DATA_EVENTO,Conexao.HORA_INICIO
-                                ,Conexao.HORA_FIM,Conexao.LOCAL_REALIZACAO,Conexao.DESCRICAO,Conexao.PARTICIPANTES, Conexao.ID_TIPO_EVENTO}, null,null, null,null, null, null);
-                        if (c != null) {
-                            mCursor.moveToFirst();
-                        }
-                        return mCursor;
+                        // Trazer do banco todos os compromisso  (getCompromisso) e "colocar" na variavel "c"
+                    c = db.getCompromissos();
 
                         /*Pegando os compromissos cadastrados da variavel "c" que veio do banco e colocando no objeto e
                         inserindo cada compromisso numa lista de compromissos */
@@ -95,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                                 compromisso = new Compromisso();
                                 compromisso.setIdCompromisso(c.getInt(0));
                                 compromisso.setDataEvento(c.getString(1));
-                                compromisso.setHoraInicio(c.getInt(2));
+                                compromisso.setHoraInicio(c.getInt(2));Object db;
                                 compromisso.setHoraFim(c.getInt(3));
                                 compromisso.setLocalRealizacao(c.getString(4));
                                 compromisso.setDescricao(c.getString(5));
@@ -116,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                             }
                             //fazer Comparar se "dataEvento" é menor ou igual à "dataSelecionada"
-                            // FAZER:Se for igual, execute isso: codigosCompromissoParaExcluir.add(compromisso.getIdCompromisso())
+                            //Se for igual, execute isso: codigosCompromissoParaExcluir.add(compromisso.getIdCompromisso())
                             if (dataEvento.before (OutraData)){
                             }else if (dataEvento.equals(OutraData)){
 
@@ -129,8 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
                         //removendo os compromissos menores ou iguais a data selecionada no calendario
                         for (int i = 0; i < codigosCompromissoParaExcluir.size(); i++) {
-                            //FAZER: Abra a conexao
-                            //FAZER: chame o método da Classe AcessoBanco "removerCompromisso() e passe como parâmetro isso:  codigosCompromissoParaExcluir.get(i);
+                            // Abra a conexao
+                            db.open ();
+                            // chame o método da Classe AcessoBanco "removerCompromisso() e passe como parâmetro isso:  codigosCompromissoParaExcluir.get(i);
                             public boolean removerCompromissos(int idCompromisso) throws SQLException
                             {
                                 long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
@@ -139,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 return true;
                             }
-                            //FAZER: fechar conexao
-
+                            // fechar conexao
+                        db.close();
                         }
 
 
