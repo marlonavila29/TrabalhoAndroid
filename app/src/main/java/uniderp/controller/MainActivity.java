@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,23 +19,36 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import uniderp.appeventos.R;
 import uniderp.model.Compromisso;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
-    CalendarView calendar;
+    CalendarView calendar ;
+    final Calendar[] calendarSelecionado = new Calendar[1];
+    Button buttonExpurgar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        buttonExpurgar = (Button) findViewById(R.id.buttonExpurgar);
+        buttonExpurgar.setEnabled(false);
         calendar = (CalendarView) findViewById(R.id.calendar);
+        calendar = (CalendarView) findViewById(R.id.calendar);
+        calendar.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                calendarSelecionado[0] = new GregorianCalendar( year, month, dayOfMonth );
+                buttonExpurgar.setEnabled(true);
+            }
+        });
+
     }
 
     public void visualizarCompromissos(View v) {
@@ -48,38 +62,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void expurgarCompromissos(View v) {
+
+        final Date dataSelecionada = calendarSelecionado[0].getTime();
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-        View promptView = layoutInflater.inflate(R.layout.input_nova_repeticao, null);
+        final View promptView = layoutInflater.inflate(R.layout.input_expurgar, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
-
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //Declaração de variáveis
-                        final Date dataSelecionada = null;
-                        Date dataEvento;
+                        Cursor c = null;
+                        Date dataEvento = null;
                         List<Integer> codigosCompromissoParaExcluir = new ArrayList<Integer>();
                         List<Compromisso> listaCompromisso = new ArrayList<Compromisso>();
                         Compromisso compromisso;
                         //Aqui é instanciado a Casse Acesso ao baco. Usa-se o "db" para chamar os métodos dessa classe
                         AcessoBanco db = new AcessoBanco(getApplicationContext());
 
-                        //Pegando a data selecionada do calendario e passando para a variavel dataSelecionada
-                        calendar = (CalendarView) findViewById(R.id.calendar);
-                        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-                            @Override
-                            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                                dataSelecionada.setDate(dayOfMonth);
-                                dataSelecionada.setMonth(month);
-                                dataSelecionada.setYear(year);
-                            }
-                        });
-
-                        Cursor c = null;
-                        // Trazer do banco todos os compromisso  (getCompromisso) e "colocar" na variavel "c"
-                    c = db.getCompromissos();
-
+                        //FAZER: Trazer do banco todos os compromisso  (getCompromisso) e "colocar" na variavel "c"
+                        db.open();
+                        c = db.getCompromissos();
+                        db.close();
                         /*Pegando os compromissos cadastrados da variavel "c" que veio do banco e colocando no objeto e
                         inserindo cada compromisso numa lista de compromissos */
 
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                 compromisso = new Compromisso();
                                 compromisso.setIdCompromisso(c.getInt(0));
                                 compromisso.setDataEvento(c.getString(1));
-                                compromisso.setHoraInicio(c.getInt(2));Object db;
+                                compromisso.setHoraInicio(c.getInt(2));
                                 compromisso.setHoraFim(c.getInt(3));
                                 compromisso.setLocalRealizacao(c.getString(4));
                                 compromisso.setDescricao(c.getString(5));
@@ -99,45 +103,29 @@ public class MainActivity extends AppCompatActivity {
                         }
                         //Trazendo de dentro da lista, um por um, cada compromisso cadastrado para fazer a verificacao das datas
                         for (int i = 0; i < listaCompromisso.size(); i++) {
-                            compromisso = new Compromisso();
                             compromisso = listaCompromisso.get(i);
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             sdf.setLenient(false);
                             try {
                                 dataEvento = sdf.parse(compromisso.getDataEvento());
-
                             } catch (ParseException e) {
                             }
                             //fazer Comparar se "dataEvento" é menor ou igual à "dataSelecionada"
-                            //Se for igual, execute isso: codigosCompromissoParaExcluir.add(compromisso.getIdCompromisso())
-                            if (dataEvento.before (OutraData)){
-                            }else if (dataEvento.equals(OutraData)){
-
-                            }else {
+                            // FAZER:Se for igual, execute isso: codigosCompromissoParaExcluir.add(compromisso.getIdCompromisso())
+                            if (dataEvento.before(dataSelecionada) || dataEvento.equals(dataSelecionada)) {
                                 codigosCompromissoParaExcluir.add(compromisso.getIdCompromisso());
                             }
-
-
                         }
-
                         //removendo os compromissos menores ou iguais a data selecionada no calendario
                         for (int i = 0; i < codigosCompromissoParaExcluir.size(); i++) {
-                            // Abra a conexao
-                            db.open ();
-                            // chame o método da Classe AcessoBanco "removerCompromisso() e passe como parâmetro isso:  codigosCompromissoParaExcluir.get(i);
-                            public boolean removerCompromissos(int idCompromisso) throws SQLException
-                            {
-                                long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
-                                if(result == -1){
-                                    return false;
-                                }
-                                return true;
-                            }
-                            // fechar conexao
-                        db.close();
+                            //FAZER: Abra a conexao
+                            db.open();
+                            //FAZER: chame o método da Classe AcessoBanco "removerCompromisso() e passe como parâmetro isso:  codigosCompromissoParaExcluir.get(i);
+                            db.exupurgarCompromissos(codigosCompromissoParaExcluir.get(i));
+                            //FAZER: fechar conexao
+                            db.close();
+
                         }
-
-
                     }
                 })
                 .setNegativeButton("cancelar",

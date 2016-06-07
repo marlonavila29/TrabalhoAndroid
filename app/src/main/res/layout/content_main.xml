@@ -22,7 +22,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Compromisso"
+        android:text="Compromissos"
         android:id="@+id/comp"
         android:layout_marginBottom="171dp"
         android:layout_marginLeft="38dp"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Expurgar"
-        android:id="@+id/button"
+        android:id="@+id/buttonExpurgar"
         android:layout_below="@+id/novoComp"
         android:layout_centerHorizontal="true"
         android:onClick="expurgarCompromissos" />

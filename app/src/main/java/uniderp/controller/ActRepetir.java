@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import uniderp.appeventos.R;
@@ -55,7 +54,7 @@ public class ActRepetir extends AppCompatActivity {
         checkTermina = (CheckBox) findViewById(R.id.checkTermina);
         editQtdeOcorrencia = (EditText) findViewById(R.id.editQtdeOcorrencia);
         editRepete = (EditText) findViewById(R.id.editRepete);
-        editDataTermino = (EditText) findViewById(R.id.editDataTermino);
+        editDataTermino = (EditText) findViewById(R.id.editDataEvento);
         editDataTermino.addTextChangedListener(Mask.insert(Mask.DATA_MASK, editDataTermino));
     }
 
@@ -141,7 +140,7 @@ public class ActRepetir extends AppCompatActivity {
     }
     public void cadastrarDataTermino(){
         final AcessoBanco db = new AcessoBanco(this);
-        editDataTermino = (EditText) findViewById(R.id.editDataTermino);
+        editDataTermino = (EditText) findViewById(R.id.editDataEvento);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dateInicio = null;
         Date dataTermino = null;

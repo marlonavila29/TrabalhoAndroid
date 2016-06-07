@@ -142,9 +142,7 @@ public class ActCompromissos extends AppCompatActivity
         }
 
     }
-
-
-    public void voltarMain(){
+    public void voltarMain(View v){
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
     }

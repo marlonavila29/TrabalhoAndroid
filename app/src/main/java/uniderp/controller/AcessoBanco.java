@@ -131,13 +131,13 @@ public class AcessoBanco {
 
             return true;
         }
-    public boolean exupurgarCompromissos(int idCompromisso) throws SQLException {
-        long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
-        if(result == -1){
-            return false;
+        public boolean exupurgarCompromissos(int idCompromisso) throws SQLException {
+            long result=  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+idCompromisso,null);
+            if(result == -1){
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
         public boolean removerCompromissos(Compromisso compromisso) throws SQLException
         {
             List<Integer> listidCompromissoRepeticoes = new ArrayList<Integer>();
@@ -161,8 +161,9 @@ public class AcessoBanco {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if(dataEventoRepeticao.before(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
-                            listidCompromissoRepeticoes.add(mCursor.getInt(0));
+                        if(dataEventoRepeticao.after(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
+                            if(compromisso.getIdCompromisso() != mCursor.getInt(0))
+                                listidCompromissoRepeticoes.add(mCursor.getInt(0));
                         }
                     }
                 } while (mCursor.moveToNext());
@@ -186,8 +187,9 @@ public class AcessoBanco {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if(dataEventoRepeticao.before(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
-                            listidCompromissoRepeticoes.add(mCursor.getInt(0));
+                        if(dataEventoRepeticao.after(dataEvento)  || dataEventoRepeticao.equals(dataEvento)) {
+                            if(compromisso.getIdCompromisso() != mCursor.getInt(0))
+                                listidCompromissoRepeticoes.add(mCursor.getInt(0));
                         }
                     }
                 } while (mCursor.moveToNext());
@@ -197,8 +199,8 @@ public class AcessoBanco {
             if(result == -1){
                 return false;
             }
-            int i = listidCompromissoRepeticoes.size();
-            while(!listidCompromissoRepeticoes.isEmpty()){
+            int i = listidCompromissoRepeticoes.size()-1;
+            while(i >= 0){
                  db.delete(Conexao.TABELA_COMPROMISSO,Conexao.ID_COMPROMISSO+" = "+listidCompromissoRepeticoes.get(i),null);
                 i--;
             }
@@ -250,9 +252,9 @@ public class AcessoBanco {
                     }
                 }
             } while (mCursor.moveToNext());
-            int i = listidCompromissoRepeticoes.size();
             boolean result =  db.update(Conexao.TABELA_COMPROMISSO, args, Conexao.ID_COMPROMISSO + " = " +compromisso.getIdCompromisso(), null) > 0;
-            while(!listidCompromissoRepeticoes.isEmpty()){
+            int i = listidCompromissoRepeticoes.size()-1;
+            while(i >= 0){
                 boolean resultadoRepeticao = db.update(Conexao.TABELA_COMPROMISSO, args, Conexao.ID_COMPROMISSO + " = " + listidCompromissoRepeticoes.get(i), null) > 0;
                 i--;
             }

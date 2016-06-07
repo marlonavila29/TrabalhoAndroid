@@ -68,6 +68,17 @@
         android:id="@+id/listCompromissos"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView7" />
+        android:layout_below="@+id/textView7"
+        android:layout_above="@+id/buttonVoltar" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar"
+        android:id="@+id/buttonVoltar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonExpurgar"
+        android:layout_alignStart="@+id/buttonExpurgar"
+        android:onClick="voltarMain" />
 
 </RelativeLayout>
